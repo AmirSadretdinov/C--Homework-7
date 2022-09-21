@@ -1,12 +1,10 @@
-﻿// Задача 50. Напишите программу, которая на вход принимает число и ищет в двумерном массиве, 
-// и возвращает индексы этого элемента или же указание, что такого элемента нет.
+﻿// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 // Например, задан массив:
 // 1 4 7 2
 // 5 9 2 3
 // 8 4 2 4
-// 7 -> 0 , 2
-// 5 -> 1 , 0
-// 18 -> нет такого элемента
+// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+
 int[,] Create2DArray(int m, int n)
 {
     int[,] array = new int[m,n];
@@ -34,25 +32,29 @@ void Print2DArray(int[,] array)
     }
 }
 
-string FindElem(int[,] array, int find)
+void PrintArray(double[] array)
 {
-    string res = "";
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        Console.Write($"{array[i]} ");
+    }
+}
+
+double[] SrArifm(int[,] array)
+{
+    double[] res = new double[array.GetLength(1)];
+    for (int j = 0; j < array.GetLength(1); j++)
+    {    
+        for (int i = 0; i < array.GetLength(0); i++)
         {
-            if (find == array[i,j])
-            {
-                res = $"{array[i,j]} -> {i} , {j}";
-                break;
-            }
-            else res = "Нет такого индекса";
+            res[j] = res[j] + array[i,j];
         }
+        res[j] = res[j] / array.GetLength(0);
     }
     return res;
 }
 
 int[,] res = Create2DArray(3,4);
 Print2DArray(res);
-string str = FindElem(res,1);
-System.Console.WriteLine(str);
+double[] res2 = SrArifm(res);
+PrintArray(res2);
